@@ -35,4 +35,3 @@ export 'src/utils/parsers/date_parser.dart';
 export 'src/utils/formatters/date_formatter.dart';
 export 'src/utils/converters/date_converter.dart';
 export 'src/utils/validators/date_validator.dart';
-

@@ -9,7 +9,9 @@ class DateParser {
   static DateTime? parse(String dateString) {
     if (dateString.isEmpty) return null;
 
-    final normalizedDateString = LocalizationUtils.normalizeToEnglish(dateString);
+    final normalizedDateString = LocalizationUtils.normalizeToEnglish(
+      dateString,
+    );
 
     // Try ISO 8601 first (most common)
     try {
@@ -34,12 +36,12 @@ class DateParser {
   /// Returns DateDetectionResult with format information
   static DateDetectionResult parseWithDetection(String dateString) {
     if (dateString.isEmpty) {
-      return DateDetectionResult.failed(
-        error: 'Date string is empty',
-      );
+      return DateDetectionResult.failed(error: 'Date string is empty');
     }
 
-    final normalizedDateString = LocalizationUtils.normalizeToEnglish(dateString);
+    final normalizedDateString = LocalizationUtils.normalizeToEnglish(
+      dateString,
+    );
 
     // 🔧 FIX: Check for compact formats BEFORE ISO 8601
     // yyyyMMdd (8 digits)
@@ -142,7 +144,9 @@ class DateParser {
     // Try all supported formats with English locale only
     for (final entry in DateFormatConstants.formatMetadata.entries) {
       try {
-        final dateTime = DateFormat(entry.key).parseStrict(normalizedDateString);
+        final dateTime = DateFormat(
+          entry.key,
+        ).parseStrict(normalizedDateString);
 
         return DateDetectionResult.detected(
           dateTime: dateTime,
@@ -178,27 +182,43 @@ class DateParser {
     if (hasLetters) {
       if (letterCount > 3) {
         if (hasComma) {
-          suggestions.add('${DateFormatConstants.MMMMdyyyyComma} (e.g., November 7, 2024)');
+          suggestions.add(
+            '${DateFormatConstants.MMMMdyyyyComma} (e.g., November 7, 2024)',
+          );
         }
         if (hasSpace && !hasComma) {
-          suggestions.add('${DateFormatConstants.ddMMMMyyyySpace} (e.g., 07 November 2024)');
+          suggestions.add(
+            '${DateFormatConstants.ddMMMMyyyySpace} (e.g., 07 November 2024)',
+          );
         }
         if (hasDash) {
-          suggestions.add('${DateFormatConstants.MMMMddyyyyDash} (e.g., November-07-2024)');
+          suggestions.add(
+            '${DateFormatConstants.MMMMddyyyyDash} (e.g., November-07-2024)',
+          );
         }
       }
-      suggestions.add('${DateFormatConstants.ddMMMyyyySpace} (e.g., 07 Nov 2024)');
+      suggestions.add(
+        '${DateFormatConstants.ddMMMyyyySpace} (e.g., 07 Nov 2024)',
+      );
     }
 
     if (hasSlash && !hasColon) {
-      suggestions.add('${DateFormatConstants.ddMMyyyySlash} (e.g., 07/11/2024)');
-      suggestions.add('${DateFormatConstants.MMddyyyySlash} (e.g., 11/07/2024)');
-      suggestions.add('${DateFormatConstants.yyyyMMddSlash} (e.g., 2024/11/07)');
+      suggestions.add(
+        '${DateFormatConstants.ddMMyyyySlash} (e.g., 07/11/2024)',
+      );
+      suggestions.add(
+        '${DateFormatConstants.MMddyyyySlash} (e.g., 11/07/2024)',
+      );
+      suggestions.add(
+        '${DateFormatConstants.yyyyMMddSlash} (e.g., 2024/11/07)',
+      );
     }
 
     if (hasDash && !hasColon) {
       if (letterCount > 3) {
-        suggestions.add('${DateFormatConstants.MMMMddyyyyDash} (e.g., November-07-2024)');
+        suggestions.add(
+          '${DateFormatConstants.MMMMddyyyyDash} (e.g., November-07-2024)',
+        );
       }
       suggestions.add('${DateFormatConstants.yyyyMMddDash} (e.g., 2024-11-07)');
       suggestions.add('${DateFormatConstants.ddMMyyyyDash} (e.g., 07-11-2024)');
@@ -212,14 +232,24 @@ class DateParser {
     }
 
     if (hasSpace && !hasLetters) {
-      suggestions.add('${DateFormatConstants.ddMMyyyySpace} (e.g., 07 11 2024)');
+      suggestions.add(
+        '${DateFormatConstants.ddMMyyyySpace} (e.g., 07 11 2024)',
+      );
     }
 
-    if (dateString.length == 8 && !hasSlash && !hasDash && !hasDot && !hasSpace) {
+    if (dateString.length == 8 &&
+        !hasSlash &&
+        !hasDash &&
+        !hasDot &&
+        !hasSpace) {
       suggestions.add('${DateFormatConstants.yyyyMMdd} (e.g., 20241107)');
     }
 
-    if (dateString.length == 6 && !hasSlash && !hasDash && !hasDot && !hasSpace) {
+    if (dateString.length == 6 &&
+        !hasSlash &&
+        !hasDash &&
+        !hasDot &&
+        !hasSpace) {
       suggestions.add('${DateFormatConstants.yyMMdd} (e.g., 241107)');
     }
 
@@ -235,12 +265,16 @@ class DateParser {
       throw const FormatException('Date string cannot be empty');
     }
 
-    final normalizedDateString = LocalizationUtils.normalizeToEnglish(dateString);
+    final normalizedDateString = LocalizationUtils.normalizeToEnglish(
+      dateString,
+    );
 
     try {
       return DateFormat(format).parseStrict(normalizedDateString);
     } catch (e) {
-      throw FormatException('Failed to parse date: $dateString with format: $format');
+      throw FormatException(
+        'Failed to parse date: $dateString with format: $format',
+      );
     }
   }
 
@@ -249,7 +283,9 @@ class DateParser {
   static DateTime? parseWithFormats(String dateString, List<String> formats) {
     if (dateString.isEmpty) return null;
 
-    final normalizedDateString = LocalizationUtils.normalizeToEnglish(dateString);
+    final normalizedDateString = LocalizationUtils.normalizeToEnglish(
+      dateString,
+    );
 
     for (final format in formats) {
       try {
@@ -265,7 +301,9 @@ class DateParser {
   /// Parse special format like 'yyMMdd' (e.g., '241107' -> 2024-11-07)
   static DateTime? parseCompactDate(String dateString) {
     if (dateString.isEmpty || dateString.length != 6) return null;
-    final normalizedDateString = LocalizationUtils.bengaliToEnglishNumerals(dateString);
+    final normalizedDateString = LocalizationUtils.bengaliToEnglishNumerals(
+      dateString,
+    );
     try {
       final year = int.parse(normalizedDateString.substring(0, 2)) + 2000;
       final month = int.parse(normalizedDateString.substring(2, 4));

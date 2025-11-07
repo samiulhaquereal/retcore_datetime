@@ -4,14 +4,30 @@ class LocalizationUtils {
   LocalizationUtils._();
 
   static const Map<String, String> _bengaliToEnglishNumerals = {
-    '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4',
-    '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9',
+    '০': '0',
+    '১': '1',
+    '২': '2',
+    '৩': '3',
+    '৪': '4',
+    '৫': '5',
+    '৬': '6',
+    '৭': '7',
+    '৮': '8',
+    '৯': '9',
   };
 
   // English to Bengali numerals
   static const Map<String, String> _englishToBengaliNumerals = {
-    '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
-    '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯',
+    '0': '০',
+    '1': '১',
+    '2': '২',
+    '3': '৩',
+    '4': '৪',
+    '5': '৫',
+    '6': '৬',
+    '7': '৭',
+    '8': '৮',
+    '9': '৯',
   };
 
   // Bengali to English month names
@@ -95,8 +111,9 @@ class LocalizationUtils {
     String result = input;
 
     // Sort by length (longest first) to avoid partial replacements
-    final sortedEntries = _englishToBengaliMonths.entries.toList()
-      ..sort((a, b) => b.key.length.compareTo(a.key.length));
+    final sortedEntries =
+        _englishToBengaliMonths.entries.toList()
+          ..sort((a, b) => b.key.length.compareTo(a.key.length));
 
     for (final entry in sortedEntries) {
       result = result.replaceAll(entry.key, entry.value);

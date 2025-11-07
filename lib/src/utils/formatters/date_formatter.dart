@@ -1,5 +1,3 @@
-
-
 import 'package:retcore_datetime/src/config/import.dart';
 
 /// Handles formatting of DateTime objects into strings
@@ -16,16 +14,25 @@ class DateFormatter {
   }
 
   /// Format a DateTime object with a specific locale.
-  static String formatWithLocale(DateTime dateTime, String format, String locale) {
+  static String formatWithLocale(
+    DateTime dateTime,
+    String format,
+    String locale,
+  ) {
     try {
       return DateFormat(format, locale).format(dateTime);
     } catch (e) {
-      throw FormatException('Failed to format DateTime with format: $format and locale: $locale');
+      throw FormatException(
+        'Failed to format DateTime with format: $format and locale: $locale',
+      );
     }
   }
 
   /// Format to ISO 8601 string (UTC with milliseconds)
-  static String toIso8601(DateTime dateTime, {bool includeMilliseconds = true}) {
+  static String toIso8601(
+    DateTime dateTime, {
+    bool includeMilliseconds = true,
+  }) {
     final utcDateTime = dateTime.toUtc();
 
     if (includeMilliseconds) {
@@ -38,7 +45,7 @@ class DateFormatter {
       // Ensure proper Z suffix
       formatted = formatted.replaceAllMapped(
         RegExp(r'(\.\d+)\+00:00$'),
-            (match) => '${match[1]}Z',
+        (match) => '${match[1]}Z',
       );
 
       return formatted;
@@ -62,11 +69,13 @@ class DateFormatter {
     final now = DateTime.now();
     final localDateTime = dateTime.toLocal();
 
-    final isToday = now.year == localDateTime.year &&
+    final isToday =
+        now.year == localDateTime.year &&
         now.month == localDateTime.month &&
         now.day == localDateTime.day;
 
-    final isYesterday = now.subtract(const Duration(days: 1)).year == localDateTime.year &&
+    final isYesterday =
+        now.subtract(const Duration(days: 1)).year == localDateTime.year &&
         now.subtract(const Duration(days: 1)).month == localDateTime.month &&
         now.subtract(const Duration(days: 1)).day == localDateTime.day;
 
@@ -83,7 +92,10 @@ class DateFormatter {
   }
 
   /// Format for notifications (dd-MM-yyyy or relative)
-  static String toNotificationDate(DateTime dateTime, {bool useRelative = false}) {
+  static String toNotificationDate(
+    DateTime dateTime, {
+    bool useRelative = false,
+  }) {
     if (useRelative) {
       return toRelativeDate(dateTime, includeTime: false);
     }

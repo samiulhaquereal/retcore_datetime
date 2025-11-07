@@ -158,8 +158,9 @@ class DateFormatConstants {
 
   /// Returns all supported input formats ordered by priority
   static List<String> get allSupportedFormats {
-    final formats = formatMetadata.entries.toList()
-      ..sort((a, b) => b.value.priority.compareTo(a.value.priority));
+    final formats =
+        formatMetadata.entries.toList()
+          ..sort((a, b) => b.value.priority.compareTo(a.value.priority));
     return formats.map((e) => e.key).toList();
   }
 

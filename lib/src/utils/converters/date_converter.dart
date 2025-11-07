@@ -12,12 +12,12 @@ class DateConverter {
     required String toFormat,
   }) {
     if (dateString.isEmpty) {
-      return DateConversionResult.failed(
-        error: 'Date string is empty',
-      );
+      return DateConversionResult.failed(error: 'Date string is empty');
     }
 
-    final normalizedDateString = LocalizationUtils.normalizeToEnglish(dateString);
+    final normalizedDateString = LocalizationUtils.normalizeToEnglish(
+      dateString,
+    );
 
     try {
       DateTime parsedDate;
@@ -25,21 +25,30 @@ class DateConverter {
       // If fromFormat is provided, use it directly
       if (fromFormat != null) {
         try {
-          parsedDate = DateParser.parseWithFormat(normalizedDateString, fromFormat);
+          parsedDate = DateParser.parseWithFormat(
+            normalizedDateString,
+            fromFormat,
+          );
           detectedFormat = fromFormat;
         } catch (e) {
           return DateConversionResult.failed(
             error: 'Failed to parse with provided format "$fromFormat". $e',
-            suggestedFormats: DateParser.getSuggestedFormats(normalizedDateString),
+            suggestedFormats: DateParser.getSuggestedFormats(
+              normalizedDateString,
+            ),
           );
         }
-      }else {
+      } else {
         // Auto-detect format
-        final detectionResult = DateParser.parseWithDetection(normalizedDateString);
+        final detectionResult = DateParser.parseWithDetection(
+          normalizedDateString,
+        );
 
         if (!detectionResult.success) {
           return DateConversionResult.failed(
-            error: detectionResult.error ?? 'Unknown error during format detection',
+            error:
+                detectionResult.error ??
+                'Unknown error during format detection',
             suggestedFormats: detectionResult.suggestedFormats,
           );
         }
@@ -52,14 +61,15 @@ class DateConverter {
       final formattedEnglish = DateFormatter.format(parsedDate, toFormat);
 
       // Format to Bengali
-      final formattedBengali = LocalizationUtils.convertToBengali(formattedEnglish);
+      final formattedBengali = LocalizationUtils.convertToBengali(
+        formattedEnglish,
+      );
 
       return DateConversionResult.converted(
         formattedDateEnglish: formattedEnglish,
         formattedDateBengali: formattedBengali,
         detectedFormat: detectedFormat,
       );
-
     } catch (e) {
       return DateConversionResult.failed(
         error: 'Conversion failed: $e',
@@ -74,9 +84,7 @@ class DateConverter {
     String? fromFormat,
   }) {
     if (dateString.isEmpty) {
-      return DateConversionResult.failed(
-        error: 'Date string is empty',
-      );
+      return DateConversionResult.failed(error: 'Date string is empty');
     }
 
     try {
