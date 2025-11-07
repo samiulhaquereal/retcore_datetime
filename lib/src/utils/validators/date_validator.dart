@@ -1,8 +1,8 @@
 import 'package:intl/intl.dart';
 
 /// Validates date-related operations
-class DateValidator {
-  DateValidator._();
+class RetCoreDateValidator {
+  RetCoreDateValidator._();
 
   /// Check if a date string is valid
   static bool isValid(String dateString) {

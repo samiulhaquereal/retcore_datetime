@@ -1,8 +1,8 @@
 import 'package:retcore_datetime/src/config/import.dart';
 
 /// Handles parsing of date strings into DateTime objects
-class DateParser {
-  DateParser._();
+class RetCoreDateParser {
+  RetCoreDateParser._();
 
   /// Parse a date string with automatic format detection
   /// Returns null if parsing fails
@@ -21,7 +21,7 @@ class DateParser {
     }
 
     // Try all supported formats
-    for (final format in DateFormatConstants.allSupportedFormats) {
+    for (final format in RetCoreDateFormat.allSupportedFormats) {
       try {
         return DateFormat(format).parseStrict(normalizedDateString);
       } catch (_) {
@@ -54,7 +54,7 @@ class DateParser {
 
         return DateDetectionResult.detected(
           dateTime: dateTime,
-          detectedFormat: DateFormatConstants.yyyyMMdd,
+          detectedFormat: RetCoreDateFormat.yyyyMMdd,
           formatName: 'Compact Date (yyyyMMdd)',
         );
       } catch (_) {
@@ -72,7 +72,7 @@ class DateParser {
 
         return DateDetectionResult.detected(
           dateTime: dateTime,
-          detectedFormat: DateFormatConstants.yyMMdd,
+          detectedFormat: RetCoreDateFormat.yyMMdd,
           formatName: 'Short Compact Date (yyMMdd)',
         );
       } catch (_) {
@@ -83,33 +83,33 @@ class DateParser {
       // Priority order: More specific → Less specific
       final priorityOrder = [
         // Month name formats (most specific)
-        DateFormatConstants.MMMMdyyyyComma,
-        DateFormatConstants.dMMMMyyyyComma,
-        DateFormatConstants.MMMMddyyyySpace,
-        DateFormatConstants.ddMMMMyyyySpace,
-        DateFormatConstants.MMMMddyyyyDash,
-        DateFormatConstants.ddMMMyyyySpace,
+        RetCoreDateFormat.MMMMdyyyyComma,
+        RetCoreDateFormat.dMMMMyyyyComma,
+        RetCoreDateFormat.MMMMddyyyySpace,
+        RetCoreDateFormat.ddMMMMyyyySpace,
+        RetCoreDateFormat.MMMMddyyyyDash,
+        RetCoreDateFormat.ddMMMyyyySpace,
 
         // Year-first formats (unambiguous)
-        DateFormatConstants.yyyyMMddSlash,
-        DateFormatConstants.yyyyMMddDot,
-        DateFormatConstants.yyyyMMddDash,
+        RetCoreDateFormat.yyyyMMddSlash,
+        RetCoreDateFormat.yyyyMMddDot,
+        RetCoreDateFormat.yyyyMMddDash,
 
         // Day-first formats (common in many countries)
-        DateFormatConstants.ddMMyyyySlash,
-        DateFormatConstants.ddMMyyyyDot,
-        DateFormatConstants.ddMMyyyyDash,
-        DateFormatConstants.ddMMyyyySpace,
+        RetCoreDateFormat.ddMMyyyySlash,
+        RetCoreDateFormat.ddMMyyyyDot,
+        RetCoreDateFormat.ddMMyyyyDash,
+        RetCoreDateFormat.ddMMyyyySpace,
 
         // Month-first formats (US style - lower priority)
-        DateFormatConstants.MMddyyyySlash,
-        DateFormatConstants.MMddyyyyDot,
-        DateFormatConstants.MMddyyyyDash,
+        RetCoreDateFormat.MMddyyyySlash,
+        RetCoreDateFormat.MMddyyyyDot,
+        RetCoreDateFormat.MMddyyyyDash,
       ];
 
       for (final format in priorityOrder) {
         try {
-          final metadata = DateFormatConstants.formatMetadata[format];
+          final metadata = RetCoreDateFormat.formatMetadata[format];
           final dateTime = DateFormat(format).parseStrict(normalizedDateString);
 
           return DateDetectionResult.detected(
@@ -142,7 +142,7 @@ class DateParser {
     }
 
     // Try all supported formats with English locale only
-    for (final entry in DateFormatConstants.formatMetadata.entries) {
+    for (final entry in RetCoreDateFormat.formatMetadata.entries) {
       try {
         final dateTime = DateFormat(
           entry.key,
@@ -183,57 +183,57 @@ class DateParser {
       if (letterCount > 3) {
         if (hasComma) {
           suggestions.add(
-            '${DateFormatConstants.MMMMdyyyyComma} (e.g., November 7, 2024)',
+            '${RetCoreDateFormat.MMMMdyyyyComma} (e.g., November 7, 2024)',
           );
         }
         if (hasSpace && !hasComma) {
           suggestions.add(
-            '${DateFormatConstants.ddMMMMyyyySpace} (e.g., 07 November 2024)',
+            '${RetCoreDateFormat.ddMMMMyyyySpace} (e.g., 07 November 2024)',
           );
         }
         if (hasDash) {
           suggestions.add(
-            '${DateFormatConstants.MMMMddyyyyDash} (e.g., November-07-2024)',
+            '${RetCoreDateFormat.MMMMddyyyyDash} (e.g., November-07-2024)',
           );
         }
       }
       suggestions.add(
-        '${DateFormatConstants.ddMMMyyyySpace} (e.g., 07 Nov 2024)',
+        '${RetCoreDateFormat.ddMMMyyyySpace} (e.g., 07 Nov 2024)',
       );
     }
 
     if (hasSlash && !hasColon) {
       suggestions.add(
-        '${DateFormatConstants.ddMMyyyySlash} (e.g., 07/11/2024)',
+        '${RetCoreDateFormat.ddMMyyyySlash} (e.g., 07/11/2024)',
       );
       suggestions.add(
-        '${DateFormatConstants.MMddyyyySlash} (e.g., 11/07/2024)',
+        '${RetCoreDateFormat.MMddyyyySlash} (e.g., 11/07/2024)',
       );
       suggestions.add(
-        '${DateFormatConstants.yyyyMMddSlash} (e.g., 2024/11/07)',
+        '${RetCoreDateFormat.yyyyMMddSlash} (e.g., 2024/11/07)',
       );
     }
 
     if (hasDash && !hasColon) {
       if (letterCount > 3) {
         suggestions.add(
-          '${DateFormatConstants.MMMMddyyyyDash} (e.g., November-07-2024)',
+          '${RetCoreDateFormat.MMMMddyyyyDash} (e.g., November-07-2024)',
         );
       }
-      suggestions.add('${DateFormatConstants.yyyyMMddDash} (e.g., 2024-11-07)');
-      suggestions.add('${DateFormatConstants.ddMMyyyyDash} (e.g., 07-11-2024)');
-      suggestions.add('${DateFormatConstants.MMddyyyyDash} (e.g., 11-07-2024)');
+      suggestions.add('${RetCoreDateFormat.yyyyMMddDash} (e.g., 2024-11-07)');
+      suggestions.add('${RetCoreDateFormat.ddMMyyyyDash} (e.g., 07-11-2024)');
+      suggestions.add('${RetCoreDateFormat.MMddyyyyDash} (e.g., 11-07-2024)');
     }
 
     if (hasDot) {
-      suggestions.add('${DateFormatConstants.ddMMyyyyDot} (e.g., 07.11.2024)');
-      suggestions.add('${DateFormatConstants.MMddyyyyDot} (e.g., 11.07.2024)');
-      suggestions.add('${DateFormatConstants.yyyyMMddDot} (e.g., 2024.11.07)');
+      suggestions.add('${RetCoreDateFormat.ddMMyyyyDot} (e.g., 07.11.2024)');
+      suggestions.add('${RetCoreDateFormat.MMddyyyyDot} (e.g., 11.07.2024)');
+      suggestions.add('${RetCoreDateFormat.yyyyMMddDot} (e.g., 2024.11.07)');
     }
 
     if (hasSpace && !hasLetters) {
       suggestions.add(
-        '${DateFormatConstants.ddMMyyyySpace} (e.g., 07 11 2024)',
+        '${RetCoreDateFormat.ddMMyyyySpace} (e.g., 07 11 2024)',
       );
     }
 
@@ -242,7 +242,7 @@ class DateParser {
         !hasDash &&
         !hasDot &&
         !hasSpace) {
-      suggestions.add('${DateFormatConstants.yyyyMMdd} (e.g., 20241107)');
+      suggestions.add('${RetCoreDateFormat.yyyyMMdd} (e.g., 20241107)');
     }
 
     if (dateString.length == 6 &&
@@ -250,7 +250,7 @@ class DateParser {
         !hasDash &&
         !hasDot &&
         !hasSpace) {
-      suggestions.add('${DateFormatConstants.yyMMdd} (e.g., 241107)');
+      suggestions.add('${RetCoreDateFormat.yyMMdd} (e.g., 241107)');
     }
 
     return suggestions.isEmpty

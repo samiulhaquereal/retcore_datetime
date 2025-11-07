@@ -1,8 +1,8 @@
 import 'package:retcore_datetime/src/config/import.dart';
 
 /// Handles conversion between different date formats
-class DateConverter {
-  DateConverter._();
+class RetCoreDateConverter {
+  RetCoreDateConverter._();
 
   /// Convert a date string from one format to another with auto-detection
   /// Returns DateConversionResult with detailed information
@@ -25,7 +25,7 @@ class DateConverter {
       // If fromFormat is provided, use it directly
       if (fromFormat != null) {
         try {
-          parsedDate = DateParser.parseWithFormat(
+          parsedDate = RetCoreDateParser.parseWithFormat(
             normalizedDateString,
             fromFormat,
           );
@@ -33,14 +33,14 @@ class DateConverter {
         } catch (e) {
           return DateConversionResult.failed(
             error: 'Failed to parse with provided format "$fromFormat". $e',
-            suggestedFormats: DateParser.getSuggestedFormats(
+            suggestedFormats: RetCoreDateParser.getSuggestedFormats(
               normalizedDateString,
             ),
           );
         }
       } else {
         // Auto-detect format
-        final detectionResult = DateParser.parseWithDetection(
+        final detectionResult = RetCoreDateParser.parseWithDetection(
           normalizedDateString,
         );
 
@@ -58,7 +58,7 @@ class DateConverter {
       }
 
       // Format to English
-      final formattedEnglish = DateFormatter.format(parsedDate, toFormat);
+      final formattedEnglish = RetCoreDateFormatter.format(parsedDate, toFormat);
 
       // Format to Bengali
       final formattedBengali = LocalizationUtils.convertToBengali(
@@ -73,7 +73,7 @@ class DateConverter {
     } catch (e) {
       return DateConversionResult.failed(
         error: 'Conversion failed: $e',
-        suggestedFormats: DateParser.getSuggestedFormats(dateString),
+        suggestedFormats: RetCoreDateParser.getSuggestedFormats(dateString),
       );
     }
   }
@@ -92,10 +92,10 @@ class DateConverter {
       String? detectedFormat;
 
       if (fromFormat != null) {
-        parsedDate = DateParser.parseWithFormat(dateString, fromFormat);
+        parsedDate = RetCoreDateParser.parseWithFormat(dateString, fromFormat);
         detectedFormat = fromFormat;
       } else {
-        final detectionResult = DateParser.parseWithDetection(dateString);
+        final detectionResult = RetCoreDateParser.parseWithDetection(dateString);
         if (!detectionResult.success) {
           return DateConversionResult.failed(
             error: detectionResult.error ?? 'Format detection failed',
@@ -106,7 +106,7 @@ class DateConverter {
         detectedFormat = detectionResult.detectedFormat;
       }
 
-      final iso = DateFormatter.toIso8601(parsedDate);
+      final iso = RetCoreDateFormatter.toIso8601(parsedDate);
       final isoBengali = LocalizationUtils.englishToBengaliNumerals(iso);
 
       return DateConversionResult.converted(
@@ -117,7 +117,7 @@ class DateConverter {
     } catch (e) {
       return DateConversionResult.failed(
         error: 'ISO conversion failed: $e',
-        suggestedFormats: DateParser.getSuggestedFormats(dateString),
+        suggestedFormats: RetCoreDateParser.getSuggestedFormats(dateString),
       );
     }
   }
@@ -131,7 +131,7 @@ class DateConverter {
 
     try {
       final dateTime = DateTime.parse(isoDateString);
-      return DateFormatter.format(dateTime, toFormat);
+      return RetCoreDateFormatter.format(dateTime, toFormat);
     } catch (_) {
       return '';
     }
@@ -140,13 +140,13 @@ class DateConverter {
   /// Convert compact date format (yyMMdd) to readable format
   static String fromCompactDate({
     required String compactDate,
-    String toFormat = DateFormatConstants.ddMMMyyyySpace,
+    String toFormat = RetCoreDateFormat.ddMMMyyyySpace,
   }) {
     if (compactDate.isEmpty) return '';
 
-    final parsedDate = DateParser.parseCompactDate(compactDate);
+    final parsedDate = RetCoreDateParser.parseCompactDate(compactDate);
     if (parsedDate == null) return '';
 
-    return DateFormatter.format(parsedDate, toFormat);
+    return RetCoreDateFormatter.format(parsedDate, toFormat);
   }
 }

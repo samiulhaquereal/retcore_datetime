@@ -1,8 +1,8 @@
 import 'package:retcore_datetime/src/config/import.dart';
 
 /// Handles formatting of DateTime objects into strings
-class DateFormatter {
-  DateFormatter._();
+class RetCoreDateFormatter {
+  RetCoreDateFormatter._();
 
   /// Format a DateTime object with the specified format pattern
   static String format(DateTime dateTime, String format) {
@@ -56,12 +56,12 @@ class DateFormatter {
 
   /// Format to human-readable date (dd MMM yyyy)
   static String toReadableDate(DateTime dateTime) {
-    return format(dateTime, DateFormatConstants.ddMMMyyyySpace);
+    return format(dateTime, RetCoreDateFormat.ddMMMyyyySpace);
   }
 
   /// Format to 12-hour time with AM/PM
   static String to12HourTime(DateTime dateTime) {
-    return format(dateTime, DateFormatConstants.hhmma);
+    return format(dateTime, RetCoreDateFormat.hhmma);
   }
 
   /// Format with relative day (Today, Yesterday, or date)
@@ -86,7 +86,7 @@ class DateFormatter {
     } else if (isYesterday) {
       return 'Yesterday$time';
     } else {
-      final date = format(localDateTime, DateFormatConstants.dMMMM);
+      final date = format(localDateTime, RetCoreDateFormat.dMMMM);
       return '$date$time';
     }
   }

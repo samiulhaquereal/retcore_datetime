@@ -1,6 +1,6 @@
 /// Defines all supported date format patterns with metadata
-class DateFormatConstants {
-  DateFormatConstants._();
+class RetCoreDateFormat {
+  RetCoreDateFormat._();
 
   // Date only formats
   static const String yyyyMMdd = 'yyyyMMdd';
