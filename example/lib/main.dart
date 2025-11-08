@@ -1,4 +1,3 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:retcore_datetime/retcore_datetime.dart';
 
@@ -34,9 +33,9 @@ class _ExamplePageState extends State<ExamplePage> {
   var _result;
 
   void _convertDate() {
-    final result = RetCoreDateConverter.convertSmart(
+    final result = RetCoreDateConverter.convert(
       dateString: _controller.text,
-      toFormat: RetCoreDateFormatConstants.ddMMMyyyySpace,
+      toFormat: RetCoreDateFormat.ddMMMyyyySpace,
     );
 
     setState(() {
@@ -148,4 +147,3 @@ class _ExamplePageState extends State<ExamplePage> {
     super.dispose();
   }
 }
-*/
