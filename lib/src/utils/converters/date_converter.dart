@@ -58,7 +58,10 @@ class RetCoreDateConverter {
       }
 
       // Format to English
-      final formattedEnglish = RetCoreDateFormatter.format(parsedDate, toFormat);
+      final formattedEnglish = RetCoreDateFormatter.format(
+        parsedDate,
+        toFormat,
+      );
 
       // Format to Bengali
       final formattedBengali = LocalizationUtils.convertToBengali(
@@ -95,7 +98,9 @@ class RetCoreDateConverter {
         parsedDate = RetCoreDateParser.parseWithFormat(dateString, fromFormat);
         detectedFormat = fromFormat;
       } else {
-        final detectionResult = RetCoreDateParser.parseWithDetection(dateString);
+        final detectionResult = RetCoreDateParser.parseWithDetection(
+          dateString,
+        );
         if (!detectionResult.success) {
           return DateConversionResult.failed(
             error: detectionResult.error ?? 'Format detection failed',

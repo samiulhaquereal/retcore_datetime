@@ -203,15 +203,9 @@ class RetCoreDateParser {
     }
 
     if (hasSlash && !hasColon) {
-      suggestions.add(
-        '${RetCoreDateFormat.ddMMyyyySlash} (e.g., 07/11/2024)',
-      );
-      suggestions.add(
-        '${RetCoreDateFormat.MMddyyyySlash} (e.g., 11/07/2024)',
-      );
-      suggestions.add(
-        '${RetCoreDateFormat.yyyyMMddSlash} (e.g., 2024/11/07)',
-      );
+      suggestions.add('${RetCoreDateFormat.ddMMyyyySlash} (e.g., 07/11/2024)');
+      suggestions.add('${RetCoreDateFormat.MMddyyyySlash} (e.g., 11/07/2024)');
+      suggestions.add('${RetCoreDateFormat.yyyyMMddSlash} (e.g., 2024/11/07)');
     }
 
     if (hasDash && !hasColon) {
@@ -232,9 +226,7 @@ class RetCoreDateParser {
     }
 
     if (hasSpace && !hasLetters) {
-      suggestions.add(
-        '${RetCoreDateFormat.ddMMyyyySpace} (e.g., 07 11 2024)',
-      );
+      suggestions.add('${RetCoreDateFormat.ddMMyyyySpace} (e.g., 07 11 2024)');
     }
 
     if (dateString.length == 8 &&

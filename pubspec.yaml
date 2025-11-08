@@ -1,5 +1,5 @@
 name: retcore_datetime
-description: "A comprehensive DateTime utility for Flutter with smart format detection, Bengali localization, and bilingual output. Parse any date format automatically and convert between English and Bengali seamlessly"
+description: "  A powerful, production-ready DateTime utility for Flutter with intelligent format detection and bilingual (English/Bengali) support."
 version: 0.0.2
 homepage: https://github.com/samiulhaquereal/retcore_datetime
 repository: https://github.com/samiulhaquereal/retcore_datetime

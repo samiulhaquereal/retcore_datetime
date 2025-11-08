@@ -1,7 +1,7 @@
 # Retcore DateTime
 
 <p align="center">
-  A powerful, production-ready DateTime utility for Flutter with intelligent format detection and bilingual (English/Bengali) support.
+    A comprehensive DateTime utility for Flutter with smart format detection, Bengali localization, and bilingual output. Parse any date format automatically and convert between English and Bengali seamlessly.
 </p>
 
 <p align="center">

@@ -12,10 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'RetCore DateTime Example',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        useMaterial3: true,
-      ),
+      theme: ThemeData(primarySwatch: Colors.teal, useMaterial3: true),
       home: const ExamplePage(),
     );
   }
@@ -46,9 +43,7 @@ class _ExamplePageState extends State<ExamplePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('RetCore DateTime Example'),
-      ),
+      appBar: AppBar(title: const Text('RetCore DateTime Example')),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -72,39 +67,49 @@ class _ExamplePageState extends State<ExamplePage> {
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: _result!.success
-                      ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        '✅ Success!',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      _buildResultRow('English', _result!.formattedDateEnglish!),
-                      _buildResultRow('Bengali', _result!.formattedDateBengali!),
-                      _buildResultRow('Format', _result!.detectedFormat!),
-                    ],
-                  )
-                      : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        '❌ Failed',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Text(_result!.error!),
-                    ],
-                  ),
+                  child:
+                      _result!.success
+                          ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                '✅ Success!',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              _buildResultRow(
+                                'English',
+                                _result!.formattedDateEnglish!,
+                              ),
+                              _buildResultRow(
+                                'Bengali',
+                                _result!.formattedDateBengali!,
+                              ),
+                              _buildResultRow(
+                                'Format',
+                                _result!.detectedFormat!,
+                              ),
+                            ],
+                          )
+                          : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                '❌ Failed',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(_result!.error!),
+                            ],
+                          ),
                 ),
               ),
             ],
@@ -112,9 +117,7 @@ class _ExamplePageState extends State<ExamplePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-
-        },
+        onPressed: () {},
         icon: const Icon(Icons.play_arrow),
         label: const Text('Run Tests'),
       ),
@@ -133,9 +136,7 @@ class _ExamplePageState extends State<ExamplePage> {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          Expanded(
-            child: Text(value),
-          ),
+          Expanded(child: Text(value)),
         ],
       ),
     );
