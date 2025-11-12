@@ -84,10 +84,10 @@ All formats work with:
 
 ```
 // All these formats are detected automatically
-DateParser.parseWithDetection("07/11/2024");       // Detects dd/MM/yyyy
-DateParser.parseWithDetection("2024-11-07");       // Detects yyyy-MM-dd
-DateParser.parseWithDetection("November 07 2024"); // Detects MMMM dd yyyy
-DateParser.parseWithDetection("241107");           // Detects yyMMdd
+RetCoreDateParser.parseWithDetection("07/11/2024");       // Detects dd/MM/yyyy
+RetCoreDateParser.parseWithDetection("2024-11-07");       // Detects yyyy-MM-dd
+RetCoreDateParser.parseWithDetection("November 07 2024"); // Detects MMMM dd yyyy
+RetCoreDateParser.parseWithDetection("241107");           // Detects yyMMdd
 
 ```
 
@@ -99,7 +99,7 @@ DateParser.parseWithDetection("241107");           // Detects yyMMdd
 * Bilingual Output: The DateConversionResult object contains both formattedDateEnglish and formattedDateBengali.
 
 ```
-final result = DateConverter.convertSmart(
+final result = RetCoreDateConverter.convert(
   dateString: 'নভেম্বর ০৭ ২০২৪', // Input can be Bengali
   toFormat: DateFormatConstants.ddMMMyyyySpace,
 );
@@ -124,7 +124,7 @@ if (result.success) {
 <p>Instead of returning null or throwing unexpected exceptions, the library uses rich result objects (DateConversionResult, DateDetectionResult) to provide detailed feedback.</p>
 
 ```
-final result = DateParser.parseWithDetection("99/99/9999");
+final result = RetCoreDateParser.parseWithDetection("99/99/9999");
 
 if (!result.success) {
   print(result.error); // "Unable to detect date format for: "99/99/9999""
@@ -144,10 +144,10 @@ if (!result.success) {
 
 ```
 // Validation
-bool isValid = DateValidator.isValid("2024-11-07"); // true
+bool isValid = RetCoreDateValidator.isValid("2024-11-07"); // true
 
 // Formatting
-String relative = DateFormatter.toRelativeDate(DateTime.now()); // "Today at 10:45 PM"
+String relative = RetCoreDateFormatter.toRelativeDate(DateTime.now()); // "Today at 10:45 PM"
 
 ```
 

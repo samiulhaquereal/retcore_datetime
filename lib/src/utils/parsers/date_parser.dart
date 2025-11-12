@@ -208,6 +208,12 @@ class RetCoreDateParser {
       suggestions.add('${RetCoreDateFormat.yyyyMMddSlash} (e.g., 2024/11/07)');
     }
 
+    if (hasLetters && hasComma && letterCount == 3) {
+      suggestions.add(
+        '${RetCoreDateFormat.MMMdyyyyComma} (e.g., Sep 18, 2025)',
+      );
+    }
+
     if (hasDash && !hasColon) {
       if (letterCount > 3) {
         suggestions.add(

@@ -22,8 +22,15 @@ class RetCoreDateFormat {
   static const String MMMMdyyyyComma = 'MMMM d, yyyy';
   static const String dMMMMyyyyComma = 'd MMMM, yyyy';
   static const String MMMMddyyyySpace = 'MMMM dd yyyy';
+  static const String MMMdyyyyComma = 'MMM d, yyyy';
+  static const String MMM_yyyy = 'MMM yyyy';
+  static const String MMMM_yyyy = 'MMMM yyyy';
 
-  // DateTime formats
+  // With day of week
+  static const String E_MMMdyyyy = 'E, MMM d, yyyy';
+  static const String EEEE_MMMMdyyyy = 'EEEE, MMMM d, yyyy';
+
+  // DateTime formats (24h and 12h)
   static const String yyyyMMddHHmmssSSSdash = 'yyyy-MM-dd HH:mm:ss.SSS';
   static const String yyyyMMddTHHmmssSSS = "yyyy-MM-ddTHH:mm:ss.SSS";
   static const String yyyyMMddTHHmmssSSSZ = "yyyy-MM-ddTHH:mm:ss.SSSZ";
@@ -33,6 +40,18 @@ class RetCoreDateFormat {
   static const String ddMMyyyyDashHHmmss = 'dd-MM-yyyy HH:mm:ss';
   static const String MMddyyyyDashHHmmss = 'MM-dd-yyyy HH:mm:ss';
   static const String MMddyyyySlashHHmmss = 'MM/dd/yyyy HH:mm:ss';
+
+  // With AM/PM
+  static const String MMMdyyyyComma_hmma = 'MMM d, yyyy h:mm a';
+  static const String MMMMddyyyy_hmma = 'MMMM dd yyyy h:mm a';
+  static const String ddMMMyyyySpace_hmma = 'dd MMM yyyy h:mm a';
+  static const String yyyyMMddDash_hmma = 'yyyy-MM-dd h:mm a';
+  static const String ddMMyyyySlash_hmma = 'dd/MM/yyyy h:mm a';
+
+  // ISO variants
+  static const String yyyyMMddTHHmmZ = 'yyyy-MM-ddTHH:mmZ';
+  static const String yyyyMMddTHHmmssZ = 'yyyy-MM-ddTHH:mm:ssZ';
+  static const String yyyyMMddTHHmmss = 'yyyy-MM-ddTHH:mm:ss';
 
   // Time formats
   static const String hhmma = 'h:mm a';
@@ -81,6 +100,30 @@ class RetCoreDateFormat {
       name: 'European Dash (dd-MM-yyyy)',
       example: '07-11-2024',
       priority: 8,
+    ),
+    MMM_yyyy: FormatMetadata(
+      pattern: MMM_yyyy,
+      name: 'Short Month Year Only (MMM yyyy)',
+      example: 'Sep 2025',
+      priority: 5,
+    ),
+    MMMM_yyyy: FormatMetadata(
+      pattern: MMMM_yyyy,
+      name: 'Full Month Year Only (MMMM yyyy)',
+      example: 'September 2025',
+      priority: 5,
+    ),
+    E_MMMdyyyy: FormatMetadata(
+      pattern: E_MMMdyyyy,
+      name: 'DayOfWeek Short Month (E, MMM d, yyyy)',
+      example: 'Tue, Nov 7, 2024',
+      priority: 3,
+    ),
+    EEEE_MMMMdyyyy: FormatMetadata(
+      pattern: EEEE_MMMMdyyyy,
+      name: 'DayOfWeek Full Month (EEEE, MMMM d, yyyy)',
+      example: 'Wednesday, November 7, 2024',
+      priority: 3,
     ),
     ddMMyyyyDot: FormatMetadata(
       pattern: ddMMyyyyDot,
@@ -148,11 +191,66 @@ class RetCoreDateFormat {
       example: 'November 07 2024',
       priority: 10,
     ),
+    MMMdyyyyComma: FormatMetadata(
+      pattern: MMMdyyyyComma,
+      name: 'Short Month Name with Comma (MMM d, yyyy)',
+      example: 'Sep 18, 2025',
+      priority: 10,
+    ),
+    yyyyMMddTHHmmZ: FormatMetadata(
+      pattern: yyyyMMddTHHmmZ,
+      name: 'Short ISO Z (yyyy-MM-ddTHH:mmZ)',
+      example: '2024-11-07T12:00Z',
+      priority: 7,
+    ),
     yyyyMMddTHHmmssSSSZ: FormatMetadata(
       pattern: yyyyMMddTHHmmssSSSZ,
       name: 'ISO 8601 UTC (yyyy-MM-ddTHH:mm:ss.SSSZ)',
       example: '2024-11-07T12:00:00.000Z',
       priority: 10,
+    ),
+
+    MMMdyyyyComma_hmma: FormatMetadata(
+      pattern: MMMdyyyyComma_hmma,
+      name: 'Short Month with 12-hour Time (MMM d, yyyy h:mm a)',
+      example: 'Sep 18, 2025 9:15 PM',
+      priority: 10,
+    ),
+    yyyyMMddTHHmmssZ: FormatMetadata(
+      pattern: yyyyMMddTHHmmssZ,
+      name: 'ISO with Seconds Z (yyyy-MM-ddTHH:mm:ssZ)',
+      example: '2024-11-07T12:00:57Z',
+      priority: 7,
+    ),
+    yyyyMMddTHHmmss: FormatMetadata(
+      pattern: yyyyMMddTHHmmss,
+      name: 'ISO Local with Seconds (yyyy-MM-ddTHH:mm:ss)',
+      example: '2024-11-07T12:00:57',
+      priority: 6,
+    ),
+    MMMMddyyyy_hmma: FormatMetadata(
+      pattern: MMMMddyyyy_hmma,
+      name: 'Full Month with 12-hour Time (MMMM dd yyyy h:mm a)',
+      example: 'November 07 2024 4:05 AM',
+      priority: 9,
+    ),
+    ddMMMyyyySpace_hmma: FormatMetadata(
+      pattern: ddMMMyyyySpace_hmma,
+      name: 'Day Month Year 12-hour (dd MMM yyyy h:mm a)',
+      example: '07 Nov 2024 03:21 PM',
+      priority: 9,
+    ),
+    yyyyMMddDash_hmma: FormatMetadata(
+      pattern: yyyyMMddDash_hmma,
+      name: 'ISO 12-hour (yyyy-MM-dd h:mm a)',
+      example: '2025-11-12 3:42 PM',
+      priority: 8,
+    ),
+    ddMMyyyySlash_hmma: FormatMetadata(
+      pattern: ddMMyyyySlash_hmma,
+      name: 'Slash Date with 12-hour (dd/MM/yyyy h:mm a)',
+      example: '18/09/2025 11:02 AM',
+      priority: 8,
     ),
   };
 

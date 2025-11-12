@@ -1,4 +1,8 @@
-## 0.0.2
+* ## 0.0.3
+
+* Added more date format.
+
+* ## 0.0.2
 
 * Documentation added.
 
